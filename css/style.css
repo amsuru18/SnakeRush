@@ -324,3 +324,8 @@ html, body {
     display: none !important;
   }
 }
+
+/* Make hamburger icon white in dark mode */
+body.dark #hamburgerBtn {
+  color: white;
+}
