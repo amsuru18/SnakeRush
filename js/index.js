@@ -71,6 +71,13 @@ let highScores = JSON.parse(localStorage.getItem("highScores")) || {
 // Load theme or default to light
 let savedTheme = localStorage.getItem("theme") || "light";
 
+// Prevent pull-to-refresh on mobile by disabling touchmove default behavior when game is running
+window.addEventListener('touchmove', function(e) {
+  if (gameRunning) {
+    e.preventDefault(); // Prevent page scroll / pull-to-refresh
+  }
+}, { passive: false }); // passive: false is necessary to allow preven
+
 // -----------------------------
 // Initial UI Setup
 // -----------------------------
