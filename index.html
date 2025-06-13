@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SnakeRush</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/logo.png" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="body">
+    
+    <!-- Score Panel -->
+    <div class="score-panel">
+      <div id="scoreBox">Score: 0</div>
+      <div id="hiscoreBox">High Score: 0</div>
+      <div id="difficultyLabel">Difficulty: Medium</div>
+    </div>
+
+    <!-- Snake Board -->
+    <div id="board"></div>
+
+    <!-- Desktop Controls -->
+    <div class="controls desktop-controls">
+      <button id="startPauseBtn">▶️ Start</button>
+      <button id="soundToggleBtn">🔊 Music On</button>
+      <button id="themeToggleBtn">🌙 Dark Mode</button>
+      <select id="difficultySelector">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <!-- Hamburger Icon (Mobile) -->
+    <div class="hamburger" id="hamburgerBtn">☰</div>
+
+    <!-- Mobile Slide-Out Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button id="closeMenuBtn" class="close-menu">✕</button>
+      <!-- Music and Theme Toggle for Mobile -->
+      <button id="soundToggleBtnMobile">🔊 Music On</button>
+      <button id="themeToggleBtnMobile">🌙 Dark Mode</button>
+      <!-- Difficulty Selector for Mobile -->
+      <select id="difficultySelectorMobile">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+
+    <!-- Mobile Start/Pause Button (Outside Menu) -->
+    <button id="startPauseBtnMobile" class="start-pause-btn mobile-only">▶️ Start</button>
+  </div>
+
+  <!-- JS -->
+  <script src="js/index.js"></script>
+</body>
+</html>

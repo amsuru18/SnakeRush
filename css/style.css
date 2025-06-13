@@ -1,0 +1,326 @@
+/* -------------------------------------------
+   Google Font
+--------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap");
+
+/* -------------------------------------------
+   Root Variables (Light Theme)
+--------------------------------------------- */
+:root {
+  --font-main: "New Tegomin", serif;
+
+  /* Colors */
+  --bg-color: rgb(144, 203, 203);
+  --board-gradient-start: #aafcaa;
+  --board-gradient-end: #ecf0a7;
+  --board-border: #222222;
+
+  --score-color: #2c3e50;
+  --score-shadow: #a0a0a0;
+
+  --snake-head-bg: linear-gradient(45deg, #f06f6f, #e4e481);
+  --snake-head-border: #220422;
+  --snake-body-bg: purple;
+  --snake-body-border: white;
+
+  --food-bg: linear-gradient(45deg, red, purple);
+  --food-border: black;
+
+  --button-bg: #fff5d1;
+  --button-border: #999999;
+  --button-text: #333333;
+  --button-hover-bg: #ffe788;
+
+  --control-gap: 1rem;
+}
+
+/* -------------------------------------------
+   Dark Theme Overrides
+--------------------------------------------- */
+body.dark {
+  --bg-color: #121212;
+  --board-gradient-start: #2a2a2a;
+  --board-gradient-end: #1a1a1a;
+  --board-border: #888888;
+
+  --score-color: #f0f0f0;
+  --score-shadow: #000000;
+
+  --snake-head-bg: linear-gradient(45deg, #ff6b6b, #d9d940);
+  --snake-head-border: #ffec00;
+  --snake-body-bg: #9b59b6;
+  --snake-body-border: #eee;
+
+  --food-bg: linear-gradient(45deg, #ff4b4b, #8e44ad);
+  --food-border: #ddd;
+
+  --button-bg: #333333;
+  --button-border: #666666;
+  --button-text: #eee;
+  --button-hover-bg: #555555;
+}
+
+/* -------------------------------------------
+   Reset + Global Styles
+--------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+}
+
+/* -------------------------------------------
+   Layout Containers
+--------------------------------------------- */
+.body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+}
+
+/* -------------------------------------------
+   Score Display
+--------------------------------------------- */
+.score-panel {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  text-align: right;
+  user-select: none;
+}
+
+#scoreBox,
+#hiscoreBox,
+#difficultyLabel {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--score-color);
+  text-shadow: 1px 1px 2px var(--score-shadow);
+  margin-bottom: 0.2rem;
+}
+
+/* -------------------------------------------
+   Snake Game Board
+--------------------------------------------- */
+#board {
+  background: linear-gradient(to bottom, var(--board-gradient-start), var(--board-gradient-end));
+  width: 90vmin;
+  height: 92vmin;
+  border: 3px solid var(--board-border);
+  display: grid;
+  grid-template-rows: repeat(18, 1fr);
+  grid-template-columns: repeat(18, 1fr);
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* -------------------------------------------
+   Snake + Food Styles
+--------------------------------------------- */
+.head {
+  background: var(--snake-head-bg);
+  border: 2px solid var(--snake-head-border);
+  border-radius: 12px;
+  transform: scale(1.05);
+  box-shadow: 0 0 6px var(--snake-head-border);
+}
+
+.snake {
+  background-color: var(--snake-body-bg);
+  border: 0.25vmin solid var(--snake-body-border);
+  border-radius: 12px;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.food {
+  background: var(--food-bg);
+  border: 0.25vmin solid var(--food-border);
+  border-radius: 8px;
+  box-shadow: 0 0 8px var(--food-border);
+}
+
+/* -------------------------------------------
+   Desktop Controls
+--------------------------------------------- */
+.controls {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--control-gap);
+  user-select: none;
+}
+
+.controls button,
+.controls select {
+  padding: 0.7rem 1.4rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: var(--font-main);
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.controls button:hover,
+.controls select:hover {
+  background-color: var(--button-hover-bg);
+}
+
+.controls button:active {
+  transform: scale(0.98);
+}
+
+/* -------------------------------------------
+   Hamburger (Mobile) + Mobile Menu
+--------------------------------------------- */
+.hamburger {
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  padding: 2rem;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  transition: left 0.3s ease;
+  z-index: 20;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-menu.open {
+  left: 0;
+  display: flex;
+}
+
+.mobile-menu button,
+.mobile-menu select {
+  padding: 0.8rem 1.2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: var(--font-main);
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid var(--button-border);
+  border-radius: 8px;
+}
+
+.mobile-menu label {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: var(--score-color);
+}
+
+.close-menu {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* -------------------------------------------
+   Media Queries (Responsive)
+--------------------------------------------- */
+@media screen and (max-width: 1120px) {
+  .desktop-controls {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .snakeimg {
+    position: static;
+    margin-bottom: 1rem;
+  }
+
+  .score-panel {
+    position: static;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  #scoreBox,
+  #hiscoreBox,
+  #difficultyLabel {
+    font-size: 1.5rem;
+  }
+
+  #board {
+    width: 95vmin;
+    height: 95vmin;
+  }
+}
+
+/* -------------------------------------------
+   Difficulty Label Hidden
+--------------------------------------------- */
+#difficultyLabel {
+  display: none;
+}
+
+/* -------------------------------------------
+   Start/Pause Button for Mobile Only
+--------------------------------------------- */
+.start-pause-btn {
+  display: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+/* Show on mobile */
+@media (max-width: 1120px) {
+  .start-pause-btn {
+    display: inline-block;
+  }
+}
+
+/* Hide on desktop */
+@media (min-width: 1121px) {
+  .start-pause-btn {
+    display: none !important;
+  }
+}
